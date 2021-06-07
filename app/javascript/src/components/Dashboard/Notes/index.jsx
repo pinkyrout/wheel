@@ -8,6 +8,7 @@ import { Header, SubHeader } from "neetoui/layouts";
 import NoteTable from "./NoteTable";
 import NewNotePane from "./NewNotePane";
 import DeleteAlert from "./DeleteAlert";
+import { sampleNotes } from "./SampleData";
 
 const Notes = () => {
   const [loading, setLoading] = useState(true);
@@ -24,13 +25,34 @@ const Notes = () => {
   const fetchNotes = async () => {
     try {
       setLoading(true);
-      const response = await notesApi.fetch();
-      setNotes(response.data);
+      await notesApi.fetch();
+      setNotes(sampleNotes);
     } catch (error) {
       logger.error(error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const sortProps = {
+    options: [
+      {
+        value: "title",
+        label: "Name",
+      },
+      {
+        value: "created_at",
+        label: "Created At",
+      },
+    ],
+    onClick: () => {},
+  };
+
+  const paginationProps = {
+    count: 50,
+    pageSize: 10,
+    pageNo: 1,
+    navigate: () => {},
   };
 
   if (loading) {
@@ -51,6 +73,7 @@ const Notes = () => {
       {notes.length ? (
         <>
           <SubHeader
+            showMenu={() => {}}
             searchProps={{
               value: searchTerm,
               onChange: e => setSearchTerm(e.target.value),
@@ -60,6 +83,9 @@ const Notes = () => {
               onClick: () => setShowDeleteAlert(true),
               disabled: !selectedNoteIds.length,
             }}
+            sortProps={sortProps}
+            paginationProps={paginationProps}
+            toggleFilter={() => {}}
           />
           <NoteTable
             selectedNoteIds={selectedNoteIds}
