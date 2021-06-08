@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import notesApi from "apis/notes";
-import { Button, PageLoader } from "neetoui";
+import { Button, PageLoader, Toastr } from "neetoui";
 import EmptyState from "components/Common/EmptyState";
 import EmptyNotesListImage from "images/EmptyNotesList";
 import { Header, SubHeader } from "neetoui/layouts";
@@ -9,6 +9,7 @@ import NoteTable from "./NoteTable";
 import NewNotePane from "./NewNotePane";
 import DeleteAlert from "./DeleteAlert";
 import { sampleNotes } from "./SampleData";
+import { DELETE_MULTIPLE_NOTES_MSG } from "./constants";
 
 const Notes = () => {
   const [loading, setLoading] = useState(true);
@@ -55,6 +56,11 @@ const Notes = () => {
     navigate: () => {},
   };
 
+  const onDeleteSucess = () => {
+    setShowDeleteAlert(false);
+    Toastr.success("Notes deleted successfully.");
+  };
+
   if (loading) {
     return <PageLoader />;
   }
@@ -91,6 +97,7 @@ const Notes = () => {
             selectedNoteIds={selectedNoteIds}
             setSelectedNoteIds={setSelectedNoteIds}
             notes={notes}
+            fetchNotes={fetchNotes}
           />
         </>
       ) : (
@@ -112,6 +119,8 @@ const Notes = () => {
           selectedNoteIds={selectedNoteIds}
           onClose={() => setShowDeleteAlert(false)}
           refetch={fetchNotes}
+          message={DELETE_MULTIPLE_NOTES_MSG}
+          onDeleteSucess={onDeleteSucess}
         />
       )}
     </>
