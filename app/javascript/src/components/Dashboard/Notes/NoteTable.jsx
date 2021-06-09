@@ -1,13 +1,29 @@
-import React from "react";
-import { Checkbox, Badge, Avatar, Button, Tooltip } from "neetoui";
+import React, { useState } from "react";
+import { Checkbox, Badge, Avatar, Button, Tooltip, Toastr } from "neetoui";
 
+import DeleteAlert from "./DeleteAlert";
 import "./note.scss";
+import { DELETE_NOTE_MSG } from "./constants";
 
 export default function NoteTable({
   selectedNoteIds,
   setSelectedNoteIds,
   notes = [],
+  fetchNotes,
 }) {
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [currentNoteId, setCurrentNoteId] = useState(null);
+
+  const handleDeleteAlert = noteId => {
+    setCurrentNoteId(noteId);
+    setShowDeleteAlert(true);
+  };
+
+  const onDeleteSucess = () => {
+    setShowDeleteAlert(false);
+    Toastr.success("Note deleted successfully.");
+  };
+
   return (
     <div className="w-full px-4">
       <table className="nui-table nui-table--checkbox">
@@ -83,7 +99,11 @@ export default function NoteTable({
                     <Button style="icon" icon="ri-pencil-line" />
                   </Tooltip>
                   <Tooltip content="Delete">
-                    <Button style="icon" icon="ri-delete-bin-line" />
+                    <Button
+                      style="icon"
+                      icon="ri-delete-bin-line"
+                      onClick={handleDeleteAlert}
+                    />
                   </Tooltip>
                 </div>
               </td>
@@ -91,6 +111,15 @@ export default function NoteTable({
           ))}
         </tbody>
       </table>
+      {showDeleteAlert && (
+        <DeleteAlert
+          selectedNoteIds={[currentNoteId]}
+          onClose={() => setShowDeleteAlert(false)}
+          refetch={fetchNotes}
+          message={DELETE_NOTE_MSG}
+          onDeleteSucess={onDeleteSucess}
+        />
+      )}
     </div>
   );
 }
