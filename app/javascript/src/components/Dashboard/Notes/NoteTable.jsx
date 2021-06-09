@@ -1,5 +1,7 @@
 import React from "react";
-import { Checkbox } from "neetoui";
+import { Checkbox, Badge, Avatar, Button, Tooltip } from "neetoui";
+
+import "./note.scss";
 
 export default function NoteTable({
   selectedNoteIds,
@@ -27,7 +29,12 @@ export default function NoteTable({
               />
             </th>
             <th className="text-left">Title</th>
-            <th className="text-left">Description</th>
+            <th className="text-left w-2">Description</th>
+            <th className="text-left">Tags</th>
+            <th className="text-left">Created Date</th>
+            <th className="text-left">Due Date</th>
+            <th className="text-left">Contact</th>
+            <th className="text-left"></th>
           </tr>
         </thead>
         <tbody>
@@ -56,10 +63,30 @@ export default function NoteTable({
               </td>
               <td>
                 <div className="flex flex-row items-center justify-start text-gray-900">
-                  {note.title}
+                  <a href={null}>{note.title}</a>
                 </div>
               </td>
-              <td>{note.description}</td>
+              <td>
+                <div className="fixed-width-col">{note.description}</div>
+              </td>
+              <td>
+                <Badge color={note.tag.color}>{note.tag.text}</Badge>
+              </td>
+              <td>{note.createdDate}</td>
+              <td>{note.dueDate || "--"}</td>
+              <td>
+                <Avatar size={36} contact={{ name: note.contact }} />
+              </td>
+              <td>
+                <div className="flex flex-row space-x-4 items-center hover-button-wrapper">
+                  <Tooltip content="Edit">
+                    <Button style="icon" icon="ri-pencil-line" />
+                  </Tooltip>
+                  <Tooltip content="Delete">
+                    <Button style="icon" icon="ri-delete-bin-line" />
+                  </Tooltip>
+                </div>
+              </td>
             </tr>
           ))}
         </tbody>

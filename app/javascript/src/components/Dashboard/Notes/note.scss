@@ -1,0 +1,17 @@
+.fixed-width-col {
+  white-space: nowrap;
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display:block;
+}
+
+.hover-button-wrapper {
+  visibility: hidden;
+}
+
+tr:hover {
+  .hover-button-wrapper {
+    visibility: visible;
+  }
+}
