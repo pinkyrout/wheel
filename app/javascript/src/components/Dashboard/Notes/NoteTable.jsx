@@ -25,7 +25,7 @@ export default function NoteTable({
 
   return (
     <div className="w-full px-4">
-      <table className="nui-table nui-table--checkbox nui-table--actions">
+      <table className="nui-table nui-table--checkbox nui-table--actions nui-table--hover">
         <thead>
           <tr>
             <th>
