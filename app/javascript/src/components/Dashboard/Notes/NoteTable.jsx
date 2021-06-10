@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Checkbox, Badge, Avatar, Button, Tooltip, Toastr } from "neetoui";
 
 import DeleteAlert from "./DeleteAlert";
-import "./Note.scss";
 import { DELETE_NOTE_MSG } from "./Constants";
 
 export default function NoteTable({
@@ -26,7 +25,7 @@ export default function NoteTable({
 
   return (
     <div className="w-full px-4">
-      <table className="nui-table nui-table--checkbox">
+      <table className="nui-table nui-table--checkbox nui-table--actions">
         <thead>
           <tr>
             <th>
@@ -45,7 +44,7 @@ export default function NoteTable({
               />
             </th>
             <th className="text-left">Title</th>
-            <th className="text-left w-2">Description</th>
+            <th className="text-left">Description</th>
             <th className="text-left">Tags</th>
             <th className="text-left">Created Date</th>
             <th className="text-left">Due Date</th>
@@ -78,12 +77,10 @@ export default function NoteTable({
                 />
               </td>
               <td>
-                <div className="flex flex-row items-center justify-start text-gray-900">
-                  <a href={null}>{note.title}</a>
-                </div>
+                <Button style="link" label={note.title} />
               </td>
               <td>
-                <div className="fixed-width-col">{note.description}</div>
+                <div className="truncate w-32">{note.description}</div>
               </td>
               <td>
                 <Badge color={note.tag.color}>{note.tag.text}</Badge>
@@ -94,7 +91,7 @@ export default function NoteTable({
                 <Avatar size={36} contact={{ name: note.contact }} />
               </td>
               <td>
-                <div className="flex flex-row space-x-4 items-center hover-button-wrapper">
+                <div className="flex flex-row space-x-4 items-center">
                   <Tooltip content="Edit">
                     <Button style="icon" icon="ri-pencil-line" />
                   </Tooltip>
