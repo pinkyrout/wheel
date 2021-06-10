@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { Input, Switch, Select } from "neetoui/formik";
-import { Button } from "neetoui";
+import { Button, Toastr } from "neetoui";
 import {
   CONTACT_FORM_INITIAL_VALUES,
   DEPARTMENTS,
@@ -9,10 +9,15 @@ import {
 } from "./Constants.js";
 
 export default function NewContactForm({ onClose }) {
+  const createNote = () => {
+    Toastr.success("New Contact added successfully.");
+    onClose();
+  };
+
   return (
     <Formik
       initialValues={CONTACT_FORM_INITIAL_VALUES}
-      onSubmit={() => {}}
+      onSubmit={createNote}
       validationSchema={validationSchema}
     >
       {({ isSubmitting }) => (
