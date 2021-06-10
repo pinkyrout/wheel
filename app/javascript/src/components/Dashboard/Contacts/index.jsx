@@ -4,6 +4,7 @@ import { Button, PageLoader, Alert } from "neetoui";
 import { Header, SubHeader } from "neetoui/layouts";
 
 import ContactTable from "./ContactTable";
+import NewContactPane from "./NewContactPane";
 import { sampleContacts } from "./SampleData";
 import { DELETE_CONTACT_ALERT_MSG } from "./Constants";
 
@@ -13,6 +14,7 @@ const Contacts = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedContactIds, setSelectedContactIds] = useState([]);
   const [contacts, setContacts] = useState([]);
+  const [showNewContactPane, setShowNewContactPane] = useState(false);
 
   useEffect(() => {
     fetchContacts();
@@ -58,7 +60,13 @@ const Contacts = () => {
     <>
       <Header
         title="Contacts"
-        actionBlock={<Button label="New Contact" icon="ri-add-line" />}
+        actionBlock={
+          <Button
+            onClick={() => setShowNewContactPane(true)}
+            label="New Contact"
+            icon="ri-add-line"
+          />
+        }
       />
       <>
         <SubHeader
@@ -80,6 +88,10 @@ const Contacts = () => {
           selectedContactIds={selectedContactIds}
           setSelectedContactIds={setSelectedContactIds}
           contacts={contacts}
+        />
+        <NewContactPane
+          showPane={showNewContactPane}
+          setShowPane={setShowNewContactPane}
         />
         <Alert
           isOpen={showDeleteAlert}
