@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Checkbox, Badge, Avatar, Button, Tooltip, Toastr } from "neetoui";
 
 import DeleteAlert from "./DeleteAlert";
-import "./note.scss";
-import { DELETE_NOTE_MSG } from "./constants";
+import "./Note.scss";
+import { DELETE_NOTE_MSG } from "./Constants";
 
 export default function NoteTable({
   selectedNoteIds,

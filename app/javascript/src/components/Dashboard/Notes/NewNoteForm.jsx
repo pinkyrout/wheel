@@ -5,7 +5,7 @@ import { Input, Textarea, Select, Switch } from "neetoui/formik";
 import { Button, DateInput } from "neetoui";
 import notesApi from "apis/notes";
 
-import { NOTE_TAGS } from "./constants";
+import { NOTE_TAGS } from "./Constants";
 
 export default function NewNoteForm({ onClose, refetch }) {
   const [dueDate, setDueDate] = useState(null);
