@@ -36,3 +36,10 @@ export const sampleNotes = [
     contact: "Sandeep Kumar",
   },
 ];
+
+export const contactsList = [
+  { label: "Mohan Singh", value: 1 },
+  { label: "Rohan Singh", value: 2 },
+  { label: "Sunil Kumar", value: 3 },
+  { label: "Mamta Verma", value: 4 },
+];

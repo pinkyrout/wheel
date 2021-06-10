@@ -12,7 +12,7 @@ export default function ContactTable({
 
   return (
     <div className="w-full px-4">
-      <table className="nui-table nui-table--checkbox">
+      <table className="nui-table nui-table--checkbox nui-table--actions nui-table--hover">
         <thead>
           <tr>
             <th>
@@ -40,10 +40,7 @@ export default function ContactTable({
         </thead>
         <tbody>
           {contacts.map(contact => (
-            <tr
-              key={contact.id}
-              className={"cursor-pointer bg-white hover:bg-gray-50"}
-            >
+            <tr key={contact.id}>
               <td>
                 <Checkbox
                   checked={selectedContactIds.includes(contact.id)}
@@ -82,7 +79,7 @@ export default function ContactTable({
                 <Checkbox checked={contact.addToBasecamp} />
               </td>
               <td>
-                <div className="flex flex-row space-x-4 items-center hover-button-wrapper">
+                <div className="flex flex-row space-x-4 items-center">
                   <Tooltip content="Edit">
                     <Button style="icon" icon="ri-pencil-line" />
                   </Tooltip>

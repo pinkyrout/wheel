@@ -1,86 +1,58 @@
 import React, { useState } from "react";
-import * as yup from "yup";
 import { Formik, Form } from "formik";
 import { Input, Textarea, Select, Switch } from "neetoui/formik";
-import { Button, DateInput } from "neetoui";
-import notesApi from "apis/notes";
+import { Button, DateInput, Collapse, Toastr } from "neetoui";
 
-import { NOTE_TAGS } from "./Constants";
+import { contactsList } from "./SampleData";
+import {
+  NOTE_TAGS,
+  NOTE_FORM_INITIAL_VALUES,
+  noteFormValidationSchema as validationSchema,
+} from "./Constants";
 
-export default function NewNoteForm({ onClose, refetch }) {
+export default function NewNoteForm({ onClose }) {
   const [dueDate, setDueDate] = useState(null);
 
-  const handleSubmit = async values => {
-      try {
-        await notesApi.create(values);
-        refetch();
-        onClose();
-      } catch (err) {
-        logger.error(err);
-      }
-    },
-    handleDueDateChange = selectedDate => {
-      setDueDate(selectedDate);
-    },
-    contactsList = [
-      { label: "Mohan Singh", value: 1 },
-      { label: "Rohan Singh", value: 2 },
-      { label: "Sunil Kumar", value: 3 },
-      { label: "Mamta Verma", value: 4 },
-    ];
+  const handleDueDateChange = selectedDate => {
+    setDueDate(selectedDate);
+  };
+
+  const createNote = () => {
+    Toastr.success("New Note added successfully.");
+    onClose();
+  };
 
   return (
     <Formik
-      initialValues={{
-        title: "",
-        description: "",
-        tag: "",
-        contact: null,
-        add_due_date: false,
-        due_date: dueDate,
-      }}
-      onSubmit={handleSubmit}
-      validationSchema={yup.object({
-        title: yup.string().required("Title is required"),
-        description: yup.string().required("Description is required"),
-      })}
+      initialValues={NOTE_FORM_INITIAL_VALUES}
+      onSubmit={createNote}
+      validationSchema={validationSchema}
     >
       {({ values, isSubmitting }) => (
-        <Form>
-          <Input label="Title" name="title" className="mb-4" />
+        <Form className="space-y-4">
+          <Input label="Title" name="title" />
           <Select
             name="tag"
             label="Tags"
             placeholder="Select a Tag"
             options={NOTE_TAGS}
-            className="mb-4"
           />
-          <Textarea
-            label="Description"
-            name="description"
-            rows={4}
-            className="mb-6"
-          />
+          <Textarea label="Description" name="description" rows={4} />
           <Select
             name="contact"
             label="Assigned Contact"
             placeholder="Select a Contact"
             options={contactsList}
-            className="mb-6"
           />
-          <Switch
-            name="add_due_date"
-            label="Add Due Date to Note"
-            className="mb-4"
-          />
-          {values.add_due_date && (
+          <Switch name="addDueDate" label="Add Due Date to Note" />
+          <Collapse open={values.addDueDate}>
             <DateInput
               label="Due Date"
               placeholder="Select a Date"
               value={dueDate}
               onChange={handleDueDateChange}
             />
-          )}
+          </Collapse>
           <div className="nui-pane__footer nui-pane__footer--absolute">
             <Button
               onClick={onClose}
@@ -91,7 +63,7 @@ export default function NewNoteForm({ onClose, refetch }) {
 
             <Button
               type="submit"
-              label="Submit"
+              label="Save Changes"
               size="large"
               style="primary"
               className="ml-2"
