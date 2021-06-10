@@ -9,7 +9,7 @@ import NoteTable from "./NoteTable";
 import NewNotePane from "./NewNotePane";
 import DeleteAlert from "./DeleteAlert";
 import { sampleNotes } from "./SampleData";
-import { DELETE_MULTIPLE_NOTES_MSG } from "./constants";
+import { DELETE_MULTIPLE_NOTES_MSG } from "./Constants";
 
 const Notes = () => {
   const [loading, setLoading] = useState(true);
