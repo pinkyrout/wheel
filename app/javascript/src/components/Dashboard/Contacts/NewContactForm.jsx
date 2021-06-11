@@ -31,7 +31,10 @@ export default function NewContactForm({ onClose }) {
             placeholder="Select a Department"
             options={DEPARTMENTS}
           />
-          <Switch label="Add to Basecamp" name="addToBasecamp" />
+          <div className="flex">
+            <span className="nui-label mr-12">Add to Basecamp</span>
+            <Switch name="addToBasecamp" className="ml-80" />
+          </div>
           <div className="nui-pane__footer nui-pane__footer--absolute">
             <Button
               onClick={onClose}
