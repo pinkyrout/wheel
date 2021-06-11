@@ -35,7 +35,7 @@ export default function ContactTable({
             <th className="text-left">Email</th>
             <th className="text-left">Department</th>
             <th className="text-left">Contact Number</th>
-            <th className="text-left">Add to Basecamp</th>
+            <th className="text-left whitespace-nowrap">Add to Basecamp</th>
           </tr>
         </thead>
         <tbody>
@@ -63,7 +63,7 @@ export default function ContactTable({
                 />
               </td>
               <td>
-                <div className="flex">
+                <div className="flex items-center">
                   <Avatar
                     size={30}
                     contact={{ name: contact.name }}
@@ -76,7 +76,10 @@ export default function ContactTable({
               <td>{contact.department}</td>
               <td>{contact.contactNumber}</td>
               <td>
-                <Checkbox checked={contact.addToBasecamp} />
+                <Checkbox
+                  checked={contact.addToBasecamp}
+                  className="items-center"
+                />
               </td>
               <td>
                 <div className="flex flex-row space-x-4 items-center">

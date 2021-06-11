@@ -44,7 +44,10 @@ export default function NewNoteForm({ onClose }) {
             placeholder="Select a Contact"
             options={contactsList}
           />
-          <Switch name="addDueDate" label="Add Due Date to Note" />
+          <div className="flex">
+            <span className="nui-label mr-6">Add Due Date to Note</span>
+            <Switch name="addDueDate" className="ml-80" />
+          </div>
           <Collapse open={values.addDueDate}>
             <DateInput
               label="Due Date"
