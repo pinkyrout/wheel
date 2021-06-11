@@ -48,7 +48,7 @@ export default function NoteTable({
             <th className="text-left">Tags</th>
             <th className="text-left">Created Date</th>
             <th className="text-left">Due Date</th>
-            <th className="text-left">Contact</th>
+            <th className="text-center">Contact</th>
             <th className="text-left"></th>
           </tr>
         </thead>
@@ -87,7 +87,7 @@ export default function NoteTable({
               </td>
               <td>{note.createdDate}</td>
               <td>{note.dueDate || "--"}</td>
-              <td>
+              <td className="flex justify-center items-center">
                 <Avatar size={36} contact={{ name: note.contact }} />
               </td>
               <td>
